@@ -1,0 +1,80 @@
+class Craps {
+  1 -> 1 Terningkopp;
+  
+  state {
+    spiller{
+      entry / {getTerningkopp().trillTerninger();}
+      spill() [getTerningkopp().erSyv()] -> vinn;
+      spill() [!getTerningkopp().erSyv()] -> tap;
+    }
+    
+    vinn{
+      entry / {vinner();}
+    }
+    tap{
+      entry / {taper();}
+    }
+  }
+  
+  //implementeres
+  void vinner(){
+    System.out.println("Gratulerer, du vant!");
+  }
+  void taper(){
+    System.out.println("Beklager, du tapte!");
+  }
+  
+}
+
+class Terning {
+  int antallOyne;
+  
+  //implementeres
+  int trill() {
+    Random random = new Random();
+    return random.nextInt(antallOyne) + 1;
+  }
+}
+
+class Terningkopp {
+  1 -> 1..* Terning;
+  lazy int terningSum = 0;
+  
+  
+  //implementeres
+  boolean erSyv() {
+    return terningSum == 7;
+  }
+  
+  //implementeres
+  void trillTerninger(){
+    
+  }
+  
+}
+//$?[End_of_model]$?
+
+namespace -;
+
+
+class Craps
+{
+  position 50 30 109 45;
+}
+
+class Craps
+{
+  position 50 30 109 45;
+  position.association Craps__Terningkopp 10,94 30,0;
+}
+
+class Terning
+{
+  position 263 107 109 94;
+}
+
+class Terningkopp
+{
+  position 50 159 153 77;
+  position.association Terning__Terningkopp 154,3 0,55;
+}
